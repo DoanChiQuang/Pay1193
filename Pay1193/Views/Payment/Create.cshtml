@@ -1,0 +1,115 @@
+﻿@model PaymentRecordCreateViewModel
+
+@{
+    ViewBag.Title = "Pay Computation";
+}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Payroll List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Pay Computation</li>
+                </ol>
+            </nav><br /><br />
+            <form method="post" asp-controller="Payment" asp-action="Create">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.EmployeeId"></label>
+                    <select asp-for="@Model.EmployeeId" class="form-control">
+                        @foreach (var item in ViewBag.emloyees)
+                        {
+                            <option value="@item.Id">@item.FullName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.EmployeeId" class="text-danger"></span>
+                </div><br /><br /><br />
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <label asp-for="@Model.PayMonth"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <select asp-for="@Model.PayMonth" class="form-control">
+                            <option selected>-- Select Month ---</option>
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                        <span asp-validation-for="@Model.PayMonth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label asp-for="@Model.TaxYearId"></label>
+
+                    </div>
+                    <div class="form-group col-md-3">
+                        <select asp-for="@Model.TaxYearId" class="form-control">
+                            @foreach (var item in ViewBag.taxYears)
+                            {
+                                <option value="@item.Id">@item.YearOfTax</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.TaxYearId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label asp-for="@Model.PayDate"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input asp-for="@Model.PayDate" class="form-control" />
+                        <span asp-validation-for="@Model.PayDate"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <label asp-for="@Model.HourlyRate"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input asp-for="@Model.HourlyRate" class="form-control" placeholder="0.00" />
+                        <span asp-validation-for="@Model.HourlyRate"></span>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label asp-for="@Model.HoursWorked"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input asp-for="@Model.HoursWorked" class="form-control" placeholder="0.00" />
+                        <span asp-validation-for="@Model.HoursWorked"></span>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label asp-for="@Model.ContractualHours"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input asp-for="@Model.ContractualHours" class="form-control" />
+                        <span asp-validation-for="@Model.ContractualHours"></span>
+                    </div>
+                </div><br /><br />
+
+
+                <div class="form-group">
+
+                    <button type="submit" class="btn btn-rounded btn-primary float-left"><i class="fas fa-calculator" style="margin-right:0.7em"></i>Compute & Save</button>
+                    <a asp-action="index" class="btn btn-rounded btn-success float-right"><i class="fas fa-caret-square-left" style="margin-right:0.7em"></i>Back to Pay List</a>
+                    <br />
+                    <br />
+                    <br />
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
